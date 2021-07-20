@@ -89,7 +89,6 @@ input, textarea {
 
 input {
     height: 30px;
-    width: 30px;
 }
 
 .success {
@@ -128,17 +127,4 @@ input {
 
 .quote td {
     padding: 5px 10px;
-}
-
-.button {
-    display: block;
-    width: 115px;
-    height: 25px;
-    background: #4E9CAF;
-    padding: 10px;
-    text-align: center;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    line-height: 25px;
 }

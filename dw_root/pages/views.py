@@ -16,7 +16,6 @@ def index(request, pagename):
 				'last_updated': pg.update_date, 
 				'page_list': Page.objects.all(), 
 	}
-	# assert False
 	return render(request, 'pages/page.html', context)
 
 def contact(request):
@@ -25,7 +24,6 @@ def contact(request):
 		form = ContactForm(request.POST)
 		if form.is_valid():
 			cd = form.cleaned_data
-			# assert False
 			con = get_connection('django.core.mail.backends.console.EmailBackend')
 			send_mail(
 				cd['subject'], 

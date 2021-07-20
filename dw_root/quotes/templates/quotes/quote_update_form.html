@@ -1,0 +1,10 @@
+{% extends 'quotes/quote.html' %}
+
+{% block title %}All Quotes{% endblock title %}
+
+{% block content %}
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update">
+</form>
+{% endblock content %}
