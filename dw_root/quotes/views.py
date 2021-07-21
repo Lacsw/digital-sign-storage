@@ -94,6 +94,6 @@ def quote_delete(request, id):
 class QuoteUpdateView(UpdateView):
     model = Quote
     fields = '__all__'
-    template_name_suffix = '_update_form'
+    template_name_suffix = '_update'
     success_url = '/'
     
