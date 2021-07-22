@@ -11,7 +11,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Quote
 from .forms import QuoteForm
-from pages.models import Page
 
 
 class QuoteList(LoginRequiredMixin, ListView):
@@ -23,7 +22,6 @@ class QuoteList(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(QuoteList, self).get_context_data(**kwargs)
-        context['page_list'] = Page.objects.all()
         return context
 
 
@@ -50,7 +48,6 @@ def quote_req(request):
             submitted = True
 
     return render(request, 'quotes/quote.html', {'form': form,
-                                                'page_list': Page.objects.all(),
                                                 'submitted': submitted})
 
 
@@ -63,7 +60,6 @@ class QuoteView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(QuoteView, self).get_context_data(**kwargs)
-        context['page_list'] = Page.objects.all()
         return context
 
 class Register(CreateView):

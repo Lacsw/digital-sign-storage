@@ -30,7 +30,7 @@ urlpatterns = [
     path('register/', Register.as_view(), name='register'), 
     path('quote/', include('quotes.urls')), 
     path('', include('django.contrib.auth.urls')), 
-    path('', include('pages.urls')), 
+    path('', include('quotes.urls')), 
     ]
 
 urlpatterns += static('/uploads/', document_root=os.path.join(settings.BASE_DIR, 'uploads'))
