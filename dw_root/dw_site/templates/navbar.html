@@ -1,0 +1,24 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Signs</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/quote/">Новая ЭП<span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/quote/detail">Список ЭП</a>
+      <a class="nav-item nav-link" href="#">Еще что-нибудь</a>
+    </div>
+  </div>
+    <div>
+                <span style="float: right; color:#FFFFFF;">
+                    {% if user.is_authenticated %}
+                      Здравствуй, {{ user.username }}. <a href="{% url 'logout' %}?next=/">Выход</a>
+                    {% else %}
+                      Вход не выполнен. <a href="{% url 'login' %}">Вход</a>
+                    {% endif %}
+                </span>
+            </div>
+</nav>
