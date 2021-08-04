@@ -62,8 +62,10 @@ class QuoteView(LoginRequiredMixin, DetailView):
         context = super(QuoteView, self).get_context_data(**kwargs)
         return context
 
+
+"""Создание формы регистрации пользователей."""
+
 class Register(CreateView):
-    """Создание формы регистрации пользователей."""
 
     template_name = 'registration/register.html'
     form_class = UserCreationForm
@@ -74,7 +76,10 @@ class Register(CreateView):
         return HttpResponseRedirect(self.success_url)
 
 
+
 """Удаление записи"""
+
+
 def quote_delete(request, id):
     context = {}
 

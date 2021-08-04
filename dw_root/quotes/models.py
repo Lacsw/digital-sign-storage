@@ -1,36 +1,65 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.db.models.deletion import CASCADE
+from django.db.models.fields import CharField
 
-STATUS_CHOICES = (
-    ('NEW', 'New Site'),
-    ('EX', 'Existing Site'),
-)
 
-PRIORITY_CHOICES = (
-    ('U', 'Urgent - 1 week or less'),
-    ('N', 'Normal - 2 to 4 weeks'),
-    ('L', 'Low - Still Researching'),
-)
+"""Модель для пользоваетля"""
 
-class Quote(models.Model):
+
+class Customer(models.Model):
+    IOGV_CHOICES = (
+        ('KGA', 'КГА'),
+        ('CIOGD', 'ЦИОГД'),
+        ('NIPC', 'НИПЦ'),
+    )
     name = models.CharField(max_length=100)
-    position = models.CharField(max_length=60, blank=True)
-    company = models.CharField(max_length=200, blank=True)
-    address = models.CharField(max_length=200, blank=True)
-    phone = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=100)
+    position = models.CharField(max_length=100, blank=True)
+    department = models.CharField(max_length=200, blank=True) #Подразделение
+    iogv = models.CharField(max_length=50, choices=IOGV_CHOICES)
+    taxpayer_number = models.IntegerField(max_length=20, blank=True)
+    snils_number = models.CharField(max_length=30)
     email = models.EmailField()
-    web = models.URLField(blank=True)
+    address = models.CharField(max_length=200, blank=True)
+    work_phone = models.CharField(max_length=30, blank=True)
+
+
+"""Модель для электронной подписи"""
+class DigitalSign(models.Model):
+    SIGNTYPE_CHOICES = (
+        ('IAC', 'ИАЦ'),
+        ('KAZN', 'Фед.Казначейство'),
+    )
+    GIS_CHOICES = (
+        ('1783', 'МАИС ЭГУ(1783)'),
+        ('2693', 'ЕССК(2693)'),
+    )
+    STATUS_CHOICES = (
+        ('active', 'Действует'),
+        ('end_out', 'Закончилась'),
+    )
+    sign_type = models.CharField(max_length=100, choices=SIGNTYPE_CHOICES)
+    gis_required = models.CharField(max_length=30, choices=GIS_CHOICES)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     description = models.TextField()
-    sitestatus = models.CharField(max_length=20, choices=STATUS_CHOICES)
-    priority = models.CharField(max_length=40, choices=PRIORITY_CHOICES)
-    jobfile = models.FileField(upload_to='', null=True, blank=True)
     submitted = models.DateField(auto_now_add=True)
-    quotedate = models.DateField(blank=True, null=True)
-    quoteprice = models.DecimalField(decimal_places=2,
-        max_digits=7, blank=True, default=0)
     username = models.ForeignKey(User, blank=True,
         null=True, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, blank=True, 
+        null=True, on_delete=CASCADE)
+
+    #jobfile = models.FileField(upload_to='', null=True, blank=True)
     
     def __str__(self):
         return str(self.id)
+
+
+    
+
+#В модели Подписи сделать поле status(Действует, Закончилась) и по статусу
+#и времени до конца срока определьять сколько дней осталось до получения новой
+#как только статус "Закончилась", убирать из списка для получения новых.

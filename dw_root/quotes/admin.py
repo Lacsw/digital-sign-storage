@@ -1,28 +1,24 @@
 from django.contrib import admin
-from .models import Quote
+from .models import DigitalSign, Customer
 
-class QuoteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'company', 'submitted', 'quotedate', 'quoteprice')
-    list_filter = ('submitted', 'quotedate')
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'last_name', 'position', 'department', 'iogv')
+    list_filter = ('position', 'department')
     readonly_fields = ('submitted',)
     search_fields = ('name',)
     fieldsets = (
         (None, {
-            'fields': ('name', 'email', 'description')
+            'fields': ('name', 'last_name', 'iogv')
         }),
         ('Contact Information', {
             'classes': ('collapse',),
-            'fields': ('position', 'company', 'address', 'phone', 'web')
+            'fields': ('position', 'department', 'email', 'work_phone', 'address')
         }),
         ('Job Information', {
             'classes': ('collapse',),
             'fields': ('sitestatus', 'priority', 'jobfile', 'submitted')
         }),
-        ('Quote Admin', {
-            'classes': ('collapse',),
-            'fields': ('quotedate', 'quoteprice', 'username')
-        }),
     )    
 
-admin.site.register(Quote, QuoteAdmin)
+admin.site.register(Customer, CustomerAdmin)
 
