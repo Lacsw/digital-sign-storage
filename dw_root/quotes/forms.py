@@ -1,17 +1,13 @@
 from django import forms
 from django.forms import ModelForm, widgets
 
-from .models import Quote
+from .models import Customer
 
-class QuoteForm(ModelForm):
+class CustomerForm(ModelForm):
     required_css_class = 'required'
     class Meta:
-        model = Quote
-        fields = [
-            'name', 'position', 'company', 'address',
-            'phone', 'email', 'web', 'description',
-            'sitestatus', 'priority', 'jobfile',
-        ]
+        model = Customer
+        fields = '__all__'
 
         # widgets = {
         #     'jobfile' : forms.FileInput(attrs={'class': 'input-file-control'}),

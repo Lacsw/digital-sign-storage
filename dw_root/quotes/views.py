@@ -9,19 +9,21 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Quote
-from .forms import QuoteForm
+from .models import Customer
+from .forms import CustomerForm
+
+"""Список пользователей"""
 
 
-class QuoteList(LoginRequiredMixin, ListView):
+class CustomerList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     context_object_name = 'all_quotes'
 
     def get_queryset(self):
-        return Quote.objects.filter(username=self.request.user)
+        return Customer.objects.filter(username=self.request.user)
 
     def get_context_data(self, **kwargs):
-        context = super(QuoteList, self).get_context_data(**kwargs)
+        context = super(CustomerList, self).get_context_data(**kwargs)
         return context
 
 
@@ -32,7 +34,7 @@ class QuoteList(LoginRequiredMixin, ListView):
 def quote_req(request):
     submitted = False
     if request.method == 'POST':
-        form = QuoteForm(request.POST, request.FILES)
+        form = CustomerForm(request.POST, request.FILES)
 
         if form.is_valid():
             quote = form.save(commit=False)
@@ -43,23 +45,24 @@ def quote_req(request):
             quote.save()
             return HttpResponseRedirect('/quote/?submitted=True')
     else:
-        form = QuoteForm()
+        form = CustomerForm()
         if 'submitted' in request.GET:
             submitted = True
 
     return render(request, 'quotes/quote.html', {'form': form,
                                                 'submitted': submitted})
 
+"""Информация о пользователе"""
 
-class QuoteView(LoginRequiredMixin, DetailView):
+class CustomerView(LoginRequiredMixin, DetailView):
     login_url = reverse_lazy('login')
     context_object_name = 'quote'
 
     def get_queryset(self):
-        return Quote.objects.filter(username=self.request.user)
+        return Customer.objects.filter(username=self.request.user)
 
     def get_context_data(self, **kwargs):
-        context = super(QuoteView, self).get_context_data(**kwargs)
+        context = super(CustomerView, self).get_context_data(**kwargs)
         return context
 
 
@@ -83,7 +86,7 @@ class Register(CreateView):
 def quote_delete(request, id):
     context = {}
 
-    obj = get_object_or_404(Quote, id=id)
+    obj = get_object_or_404(Customer, id=id)
 
     if request.method == "POST":
         obj.delete()
@@ -92,8 +95,8 @@ def quote_delete(request, id):
     return render(request, 'quotes/quote_delete.html', context)
 
 
-class QuoteUpdateView(UpdateView):
-    model = Quote
+class CustomerUpdateView(UpdateView):
+    model = Customer
     fields = '__all__'
     template_name_suffix = '_update'
     success_url = '/'

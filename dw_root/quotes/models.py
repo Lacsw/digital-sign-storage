@@ -7,19 +7,18 @@ from django.db.models.fields import CharField
 
 """Модель для пользоваетля"""
 
-
 class Customer(models.Model):
-    IOGV_CHOICES = (
-        ('KGA', 'КГА'),
-        ('CIOGD', 'ЦИОГД'),
-        ('NIPC', 'НИПЦ'),
-    )
+    IOGV_CHOICES = [
+    ('KGA', 'КГА'),
+    ('CIOGD', 'ЦИОГД'),
+    ('NIPC', 'НИПЦ'),
+    ]
     name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     position = models.CharField(max_length=100, blank=True)
     department = models.CharField(max_length=200, blank=True) #Подразделение
-    iogv = models.CharField(max_length=50, choices=IOGV_CHOICES)
-    taxpayer_number = models.IntegerField(max_length=20, blank=True)
+    iogv = models.CharField(max_length=50, choices=IOGV_CHOICES, default='KGA')
+    taxpayer_number = models.CharField(max_length=50, blank=True)
     snils_number = models.CharField(max_length=30)
     email = models.EmailField()
     address = models.CharField(max_length=200, blank=True)
