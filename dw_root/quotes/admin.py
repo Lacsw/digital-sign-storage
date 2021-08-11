@@ -7,6 +7,7 @@ from .models import DigitalSign, Customer, GisNumber
 class DigitalSignInline(admin.TabularInline):
     """Добавляет пользователю все связанные сертификаты на страницу"""
     model = DigitalSign
+    extra = 0
 
 
 class CustomerAdmin(admin.ModelAdmin):

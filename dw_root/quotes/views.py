@@ -12,15 +12,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Customer
 from .forms import CustomerForm
 
+
 """Список пользователей"""
 
 
 class CustomerList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
-    context_object_name = 'all_quotes'
-
-    def get_queryset(self):
-        return Customer.objects.filter(username=self.request.user)
+    model = Customer
 
     def get_context_data(self, **kwargs):
         context = super(CustomerList, self).get_context_data(**kwargs)
@@ -50,23 +48,23 @@ def quote_req(request):
             submitted = True
 
     return render(request, 'quotes/quote.html', {'form': form,
-                                                'submitted': submitted})
+                                                 'submitted': submitted})
+
 
 """Информация о пользователе"""
 
-class CustomerView(LoginRequiredMixin, DetailView):
-    login_url = reverse_lazy('login')
-    context_object_name = 'quote'
 
-    def get_queryset(self):
-        return Customer.objects.filter(username=self.request.user)
+class CustomerDetailView(LoginRequiredMixin, DetailView):
+    login_url = reverse_lazy('login')
+    model = Customer
 
     def get_context_data(self, **kwargs):
-        context = super(CustomerView, self).get_context_data(**kwargs)
+        context = super(CustomerDetailView, self).get_context_data(**kwargs)
         return context
 
 
 """Создание формы регистрации пользователей."""
+
 
 class Register(CreateView):
 
@@ -77,7 +75,6 @@ class Register(CreateView):
     def form_valid(self, form):
         form.save()
         return HttpResponseRedirect(self.success_url)
-
 
 
 """Удаление записи"""
@@ -100,4 +97,3 @@ class CustomerUpdateView(UpdateView):
     fields = '__all__'
     template_name_suffix = '_update'
     success_url = '/'
-    

@@ -14,7 +14,7 @@
                 {% csrf_token %}
 
                 <input class="btn btn-danger" type="submit" value="Yes"/>
-                <a class="btn btn-warning" href="/detail">Cancel</a>
+                <a class="btn btn-warning" href="/detail/{{ customer.id }}">Cancel</a>
             </form>
         </div>
     </div>
