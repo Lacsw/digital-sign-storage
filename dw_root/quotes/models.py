@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import CharField
+from dateutil.relativedelta import relativedelta
+import datetime
 
 from django.urls import reverse
 
@@ -74,10 +76,12 @@ class DigitalSign(models.Model):
     username = models.ForeignKey(User, blank=True,
                                  null=True, on_delete=models.CASCADE)
 
+    #поле бд загрузки файла
     #jobfile = models.FileField(upload_to='', null=True, blank=True)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.customer)
+    
 
 
 # В модели Подписи сделать поле status(Действует, Закончилась) и по статусу

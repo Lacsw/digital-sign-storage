@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Customer
+from .models import Customer, DigitalSign
 from .forms import CustomerForm
 
 
@@ -20,8 +20,13 @@ class CustomerList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     model = Customer
 
+
     def get_context_data(self, **kwargs):
         context = super(CustomerList, self).get_context_data(**kwargs)
+        context.update({
+            'signs': DigitalSign.objects.filter(status='active'),
+            'end_date_sing': DigitalSign.end_date
+        })
         return context
 
 
