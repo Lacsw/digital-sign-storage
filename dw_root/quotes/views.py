@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Customer, DigitalSign
-from .forms import CustomerForm
+from .forms import CustomerForm, DigitalSignForm
 
 
 """Список пользователей"""
@@ -19,7 +19,6 @@ from .forms import CustomerForm
 class CustomerList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     model = Customer
-
 
     def get_context_data(self, **kwargs):
         context = super(CustomerList, self).get_context_data(**kwargs)
@@ -30,7 +29,7 @@ class CustomerList(LoginRequiredMixin, ListView):
         return context
 
 
-"""Регистрация записи"""
+"""Добавление пользователя"""
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -55,6 +54,30 @@ def quote_req(request):
     return render(request, 'quotes/quote.html', {'form': form,
                                                  'submitted': submitted})
 
+
+"""Добавление сертификата"""
+
+@login_required(login_url=reverse_lazy('login'))
+def sign_create(request):
+    submitted = False
+    if request.method == 'POST':
+        form = DigitalSignForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            quote = form.save(commit=False)
+            try:
+                quote.username = request.user
+            except Exception:
+                pass
+            quote.save()
+            return HttpResponseRedirect('/quote/?submitted=True')
+    else:
+        form = DigitalSignForm()
+        if 'submitted' in request.GET:
+            submitted = True
+
+    return render(request, 'quotes/sign_create.html', {'form': form,
+                                                 'submitted': submitted})
 
 """Информация о пользователе"""
 

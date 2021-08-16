@@ -64,7 +64,8 @@ class DigitalSign(models.Model):
                                  blank=True,
                                  null=True,
                                  on_delete=CASCADE,
-                                 verbose_name='Владелец сертификата')
+                                 verbose_name='Владелец сертификата',
+                                 related_name='customer_sign')
     sign_type = models.CharField(max_length=100, choices=SIGNTYPE_CHOICES)
     gis_required = models.ManyToManyField(GisNumber,
                                           help_text="Выберите одну или несколько ГИС для сертификата")
