@@ -6,6 +6,10 @@ from . import models
 
 from .models import Customer, DigitalSign
 
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
 class CustomerForm(ModelForm):
     required_css_class = 'required'
     class Meta:
@@ -21,5 +25,9 @@ class DigitalSignForm(ModelForm):
     class Meta:
         model = DigitalSign
         fields = '__all__'
+        widgets = {
+            'start_date': DateInput(),
+            'end_date': DateInput(),
+        }
     
     
