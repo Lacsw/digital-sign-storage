@@ -24,7 +24,7 @@ class CustomerList(LoginRequiredMixin, ListView):
         context = super(CustomerList, self).get_context_data(**kwargs)
         context.update({
             'signs': DigitalSign.objects.filter(status='active'),
-            'end_date_sing': DigitalSign.end_date
+            'end_date_sign': DigitalSign.end_date
         })
         return context
 
@@ -125,3 +125,20 @@ class CustomerUpdateView(UpdateView):
     fields = '__all__'
     template_name_suffix = '_update'
     success_url = '/'
+
+
+
+"""Список пользователей"""
+
+
+class SignList(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('login')
+    model = DigitalSign
+    template_name = 'quotes/sign_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SignList, self).get_context_data(**kwargs)
+        context.update({
+            'signs': DigitalSign.objects.filter(status='active'),
+        })
+        return context

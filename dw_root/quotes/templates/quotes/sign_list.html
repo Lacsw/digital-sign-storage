@@ -1,0 +1,44 @@
+{% extends 'quotes/quote.html' %}
+
+{% block title %}Список ЭП{% endblock title %}
+
+{% block content %}
+<h1>Список ЭП</h1>
+
+<table class="table table-sm table-hover">
+    <thead>
+    <tr class="quotehdr">
+        <th>ID</th>
+        <th>Кому выдана</th>
+        <th>Статус</th>
+        <th>Начало действия</th>
+        <th>Конец действия</th>
+        <th>Подразделение</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for sign in signs %}
+        <tr>
+            <td>{{ sign.id }}</td>
+            <td>{{ sign.customer }}</td>
+            <td>{{ sign.get_status_display }}</td> 
+            <td>{{ sign.start_date }}</td> 
+            <td>{{ sign.end_date }}</td> 
+            <td>{{ sign.customer.get_iogv_display }}</td> 
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% comment %} Отображение активных подписей на страницу
+<table>
+{% for s in signs %}
+    <tr>
+        <td><a href="detail/{{ s.customer.id }}">{{ s }}</a></td>
+        <td>{{ s.end_date }}</td>
+    </tr>
+{% endfor %}
+</table>  {% endcomment %}
+
+
+{% endblock content %}

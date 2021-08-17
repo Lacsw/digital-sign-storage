@@ -15,9 +15,9 @@
 
     {% include 'navbar.html' %}
 
-    <div id="wrapper">
-        <header id="header">
-            <div id="topbanner"><img src="{% static 'top_banner.jpg' %}"/></div>
+    <div>
+        <header>
+            <div><img src="{% static 'top_banner.jpg' %}" class="img-fluid" alt="100%x250" style="height: 200px; width: 0%; display: block;"/></div>
         </header>
         <section id="main">
             {% block content %}
