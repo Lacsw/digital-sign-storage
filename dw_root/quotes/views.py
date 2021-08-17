@@ -70,7 +70,7 @@ def sign_create(request):
             except Exception:
                 pass
             quote.save()
-            return HttpResponseRedirect('/quote/?submitted=True')
+            return HttpResponseRedirect('/sign/create/?submitted=True')
     else:
         form = DigitalSignForm()
         if 'submitted' in request.GET:
