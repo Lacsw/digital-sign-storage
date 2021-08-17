@@ -9,7 +9,7 @@
 		<div class="card card-body">
 			<h5>Пользователь: {{ customer.last_name }} {{ customer.name }}</h5>
 			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="">Редактировать</a>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url "customer_update" customer.id %}">Редактировать</a>
 			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url "sign_create"  %}">Добавить сертификат</a>
 
 		</div>
@@ -52,8 +52,8 @@
 					<th>Дата выдачи</th>
 					<th>Дата окончания</th>
 					<th>Статус</th>
-					<th>Изменить</th>
-					<th>Удалить</th>
+					<th></th>
+					<th></th>
 
 				</tr>
                 {% for sign in customer.customer_sign.all %}
@@ -64,8 +64,8 @@
                             <td>{{ sign.start_date }}</td> 
                             <td>{{ sign.end_date }}</td>
                             <td>{{ sign.get_status_display }}</td>
-                            <td><a class="btn btn-outline-primary" href="{% url "quote_update" sign.id %}">Изменить</a></td>
-                            <td><a class="btn btn-outline-primary" href="{% url "quote_delete" sign.id %}">Удалить</a></td>
+							<td><a class="btn btn-outline-warning btn-sm" href="{% url "customer_update" sign.id %}">Изменить</a></td>
+							<td><a class="btn btn-outline-danger btn-sm" href="{% url "quote_delete" sign.id %}">Удалить</a></td> 
 
                         </tr>
 				{% endfor %}

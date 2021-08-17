@@ -105,7 +105,7 @@ class Register(CreateView):
         return HttpResponseRedirect(self.success_url)
 
 
-"""Удаление записи"""
+"""Удаление прользователя"""
 
 
 def quote_delete(request, id):
@@ -124,8 +124,7 @@ class CustomerUpdateView(UpdateView):
     model = Customer
     fields = '__all__'
     template_name_suffix = '_update'
-    success_url = '/'
-
+    # success_url = 'detail/'
 
 
 """Список пользователей"""
