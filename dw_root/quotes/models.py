@@ -76,7 +76,7 @@ class DigitalSign(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     submitted = models.DateField(auto_now_add=True)
     username = models.ForeignKey(User, blank=True,
                                  null=True, on_delete=models.CASCADE)

@@ -8,6 +8,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
+
+from datetime import datetime, timedelta
 
 from .models import Customer, DigitalSign
 from .forms import CustomerForm, DigitalSignForm
@@ -136,8 +139,12 @@ class SignList(LoginRequiredMixin, ListView):
     template_name = 'quotes/sign_list.html'
 
     def get_context_data(self, **kwargs):
+
         context = super(SignList, self).get_context_data(**kwargs)
+        current_time = timezone.now()
+        time_15days = current_time - timedelta(days=15)
         context.update({
             'signs': DigitalSign.objects.filter(status='active'),
+            'signs_15days_left': DigitalSign.objects.filter(end_date__range=[time_15days, current_time])
         })
         return context
