@@ -11,6 +11,7 @@
 			<hr>
 			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url "customer_update" customer.id %}">Редактировать</a>
 			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url "sign_create"  %}">Добавить сертификат</a>
+			<a class="btn btn-outline-danger btn-sm btn-block" href="{% url "customer_delete" customer.id %}">Удалить пользователя</a>
 
 		</div>
 	</div>
@@ -63,7 +64,7 @@
                             <td>{{ sign.start_date }}</td> 
                             <td>{{ sign.end_date }}</td>
 							<td><a class="btn btn-outline-warning btn-sm" href="{% url "customer_update" sign.id %}">Изменить</a></td>
-							<td><a class="btn btn-outline-danger btn-sm" href="{% url "quote_delete" sign.id %}">Удалить</a></td> 
+							<td><a class="btn btn-outline-danger btn-sm" href="{% url "customer_update" sign.id %}">Удалить</a></td> 
 
                         </tr>
 				{% endfor %}

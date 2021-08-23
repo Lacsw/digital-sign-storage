@@ -1,0 +1,21 @@
+{% extends 'quotes/quote.html' %}
+
+{% block title %}Удаление пользователя{% endblock title %}
+
+{% block content %}
+<br>
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+            <form method="POST">
+            <p>Вы уверены что хотите удалить пользователя <b>{{ customer }}</b>?</p>
+                <!-- Security token by Django -->
+                {% csrf_token %}
+
+                <input class="btn btn-danger" type="submit" value="Удалить"/>
+                <a class="btn btn-warning" href="/detail/{{ customer.id }}">Отмена</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

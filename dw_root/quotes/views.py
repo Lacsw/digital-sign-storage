@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponseRedirect, request
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.base import View
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -109,17 +109,20 @@ class Register(CreateView):
 
 """Удаление прользователя"""
 
+class CustomerDeleteView(DeleteView):
+    model = Customer
+    success_url = reverse_lazy('customer-list')
 
-def quote_delete(request, id):
-    context = {}
+# def quote_delete(request, id):
+#     context = {}
 
-    obj = get_object_or_404(Customer, id=id)
+#     obj = get_object_or_404(Customer, id=id)
 
-    if request.method == "POST":
-        obj.delete()
-        return HttpResponseRedirect("/")
+#     if request.method == "POST":
+#         obj.delete()
+#         return HttpResponseRedirect("/")
 
-    return render(request, 'quotes/quote_delete.html', context)
+#     return render(request, 'quotes/quote_delete.html', context)
 
 
 class CustomerUpdateView(UpdateView):

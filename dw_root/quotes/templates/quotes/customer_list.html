@@ -19,6 +19,7 @@
         <th>Email</th>
         <th>Рабочий телефон</th>
         <th>Рабочий адрес</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -34,7 +35,8 @@
             <td>{{ customer.snils_number|default:"--" }}</td> 
             <td>{{ customer.email }}</td> 
             <td>{{ customer.work_phone|default:"--" }}</td>
-            <td>{{ customer.address|default:"--" }}</td> 
+            <td>{{ customer.address|default:"--" }}</td>
+            <td><a class="btn btn-outline-danger btn-sm" href="{% url "customer_delete" customer.id %}">Удалить</a></td>
         </tr>
     {% endfor %}
     </tbody>
