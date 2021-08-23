@@ -20,6 +20,7 @@ class Customer(models.Model):
     ]
     name = models.CharField('Имя', max_length=100)
     last_name = models.CharField('Фамилия', max_length=100)
+    middle_name = models.CharField('Отчество', max_length=100)
     position = models.CharField('Должность', max_length=100, blank=True)
     department = models.CharField(
         'Подразделение', max_length=200, blank=True)
@@ -30,6 +31,9 @@ class Customer(models.Model):
     email = models.EmailField()
     address = models.CharField('Адрес', max_length=200, blank=True)
     work_phone = models.CharField('Телефон', max_length=30, blank=True)
+
+    class Meta:
+        ordering = ['last_name']
 
     def __str__(self):
         return '%s %s' % (self.last_name, self.name)
@@ -60,10 +64,6 @@ class DigitalSign(models.Model):
         ('1783', 'МАИС ЭГУ(1783)'),
         ('2693', 'ЕССК(2693)'),
     )
-    STATUS_CHOICES = (
-        ('active', 'Действует'),
-        ('end_out', 'Закончилась'),
-    )
     customer = models.ForeignKey(Customer,
                                  blank=True,
                                  null=True,
@@ -75,7 +75,6 @@ class DigitalSign(models.Model):
                                           help_text="Выберите одну или несколько ГИС для сертификата")
     start_date = models.DateField()
     end_date = models.DateField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     description = models.TextField(blank=True)
     submitted = models.DateField(auto_now_add=True)
     username = models.ForeignKey(User, blank=True,
@@ -83,6 +82,9 @@ class DigitalSign(models.Model):
 
     # поле бд загрузки файла
     #jobfile = models.FileField(upload_to='', null=True, blank=True)
+
+    class Meta:
+        ordering = ['end_date']
 
     def __str__(self):
         return str(self.customer)
