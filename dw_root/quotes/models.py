@@ -36,7 +36,7 @@ class Customer(models.Model):
         ordering = ['last_name']
 
     def __str__(self):
-        return '%s %s' % (self.last_name, self.name)
+        return '%s %s %s' % (self.last_name, self.name, self.middle_name)
 
     def get_absolute_url(self):
         return reverse('customer_detail', kwargs={'pk': self.pk})
