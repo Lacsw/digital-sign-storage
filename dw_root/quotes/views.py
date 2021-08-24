@@ -145,10 +145,14 @@ class SignList(LoginRequiredMixin, ListView):
 
         context = super(SignList, self).get_context_data(**kwargs)
         current_time = timezone.now()
-        time_15days = current_time + timedelta(days=15)
+        left_7days = current_time + timedelta(days=7)
+        left_15days = current_time + timedelta(days=15)
+        left_30days = current_time + timedelta(days=30)
         context.update({
             'active_signs': DigitalSign.objects.filter(end_date__gte=current_time),
-            'signs_15days_left': DigitalSign.objects.filter(end_date__range=[current_time, time_15days])
+            'signs_7days_left': DigitalSign.objects.filter(end_date__range=[current_time, left_7days]),
+            'signs_15days_left': DigitalSign.objects.filter(end_date__range=[left_7days, left_15days]),
+            'signs_30days_left': DigitalSign.objects.filter(end_date__range=[left_15days, left_30days]),
         })
         return context
 
