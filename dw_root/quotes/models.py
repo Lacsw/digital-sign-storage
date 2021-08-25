@@ -60,22 +60,21 @@ class DigitalSign(models.Model):
         ('IAC', 'ИАЦ'),
         ('KAZN', 'Фед.Казначейство'),
     )
-    GIS_CHOICES = (
-        ('1783', 'МАИС ЭГУ(1783)'),
-        ('2693', 'ЕССК(2693)'),
-    )
+
     customer = models.ForeignKey(Customer,
                                  blank=True,
                                  null=True,
                                  on_delete=CASCADE,
                                  verbose_name='Владелец сертификата',
                                  related_name='customer_sign')
-    sign_type = models.CharField(max_length=100, choices=SIGNTYPE_CHOICES)
+    sign_type = models.CharField(
+        'Тип подписи', max_length=100, choices=SIGNTYPE_CHOICES)
     gis_required = models.ManyToManyField(GisNumber,
-                                          help_text="Выберите одну или несколько ГИС для сертификата")
-    start_date = models.DateField()
-    end_date = models.DateField()
-    description = models.TextField(blank=True)
+                                          help_text="Выберите одну или несколько ГИС для сертификата",
+                                          verbose_name='Необходимые ГИС')
+    start_date = models.DateField('Дата выдачи',)
+    end_date = models.DateField('Дата окончания',)
+    description = models.TextField('Заметки', blank=True)
     submitted = models.DateField(auto_now_add=True)
     username = models.ForeignKey(User, blank=True,
                                  null=True, on_delete=models.CASCADE)

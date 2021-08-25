@@ -33,7 +33,7 @@ admin.site.register(Customer, CustomerAdmin)
 @admin.register(DigitalSign)
 class DigitalSignAdmin(admin.ModelAdmin):
     list_display = ('customer', 'sign_type',
-                    'start_date', 'end_date',)
+                    'start_date', 'end_date','submitted','username')
     list_filter = ('customer', 'end_date')
     search_fields = ('customer', 'start_date', 'end_date')
 

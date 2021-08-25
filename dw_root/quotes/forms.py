@@ -26,6 +26,7 @@ class DigitalSignForm(ModelForm):
     class Meta:
         model = DigitalSign
         fields = '__all__'
+        exclude = ['username',]
         widgets = {
             'start_date': DateInput(),
             'end_date': DateInput(),
