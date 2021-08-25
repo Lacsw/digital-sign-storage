@@ -26,7 +26,7 @@ class Customer(models.Model):
         'Подразделение', max_length=200, blank=True)
     iogv = models.CharField('Структура', max_length=50,
                             choices=IOGV_CHOICES, default='KGA')
-    taxpayer_number = models.CharField('ИНН', max_length=50, blank=True)
+    taxpayer_number = models.CharField('ИНН', max_length=50)
     snils_number = models.CharField('СНИЛС', max_length=30)
     email = models.EmailField()
     address = models.CharField('Адрес', max_length=200, blank=True)

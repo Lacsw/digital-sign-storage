@@ -30,6 +30,10 @@ body {
     clear: both;
     color: #969696;
 }
+.required label::after {
+    content: "*";
+    color: red;
+}
 /* #nav li {
     padding-top: 10px;
     padding-bottom: 10px;

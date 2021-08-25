@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Quote Request{% endblock title %}
+{% block title %}Создание нового сотрудника{% endblock title %}
 
 
 {% block content %}
-<h1>Создание новой записи</h1>
+<h1>Создание нового сотрудника</h1>
 
 {% if submitted %}
     <p class="success">
-        Your quote was submitted succsesfully. Thank you.
+        Сотрудник успешно добавлен.
     </p>
 {% else %}
+    <br>
     <form action="" enctype="multipart/form-data" method="post" novalidate>
     <table>
         {{ form.as_table }}
