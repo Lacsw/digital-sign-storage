@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponseRedirect, request
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, ModelFormMixin, UpdateView
 from django.views.generic.base import View
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -66,12 +66,13 @@ def sign_create(request):
         form = DigitalSignForm(request.POST, request.FILES)
 
         if form.is_valid():
-            quote = form.save(commit=False)
+            sign = form.save(commit=False)
             try:
-                quote.username = request.user
+                sign.username = request.user
             except Exception:
                 pass
-            quote.save()
+            sign.save()
+            form.save_m2m()
             return HttpResponseRedirect('/sign/create/?submitted=True')
     else:
         form = DigitalSignForm()
@@ -128,7 +129,7 @@ class CustomerDeleteView(DeleteView):
 class CustomerUpdateView(UpdateView):
     model = Customer
     fields = '__all__'
-    template_name_suffix = '_update'
+    template_name_suffix = 'customer_update'
     # success_url = 'detail/'
 
 
@@ -156,3 +157,10 @@ class SignList(LoginRequiredMixin, ListView):
         })
         return context
 
+
+"""Изменение ЭП"""
+
+class SignUpdateView(UpdateView, ModelFormMixin):
+    model = DigitalSign
+    form_class = DigitalSignForm
+    template_name_suffix = '_update'

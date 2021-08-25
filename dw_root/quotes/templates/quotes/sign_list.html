@@ -28,7 +28,7 @@
             <td>{{ sign.start_date }}</td> 
             <td>{{ sign.end_date }}</td> 
             <td>{{ sign.customer.get_iogv_display }}</td>
-            <td><a class="btn btn-outline-warning btn-sm" href="{% url "customer_update" sign.id %}">Изменить</a></td>
+            <td><a class="btn btn-outline-warning btn-sm" href="{% url "digitalSign_update" sign.id %}">Изменить</a></td>
             <td><a class="btn btn-outline-danger btn-sm" href="{% url "customer_update" sign.id %}">Удалить</a></td> 
         </tr>
     {% endfor %}

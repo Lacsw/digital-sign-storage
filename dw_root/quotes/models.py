@@ -87,6 +87,9 @@ class DigitalSign(models.Model):
 
     def __str__(self):
         return str(self.customer)
+    
+    def get_absolute_url(self):
+        return reverse('customer_detail', kwargs={'pk': self.customer.pk})
 
 
 # В модели Подписи сделать поле status(Действует, Закончилась) и по статусу

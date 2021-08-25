@@ -1,0 +1,17 @@
+{% extends 'quotes/quote.html' %}
+
+{% block title %}Изменение записи.{% endblock title %}
+
+{% block content %}
+<br><h2>Редактирование записи</h2><br>
+<form method="post">
+    <table>
+        {{ form.as_table }}
+        <tr>
+            <td>&nbsp;</td>
+            <td><input type="submit" value="Обновить"></td>
+        </tr>
+    </table>
+    {% csrf_token %}
+</form>
+{% endblock content %}
