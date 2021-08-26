@@ -93,7 +93,7 @@ class CustomerDetailView(LoginRequiredMixin, DetailView):
         context = super(CustomerDetailView, self).get_context_data(**kwargs)
         return context
 
-
+    
 """Создание формы регистрации пользователей."""
 
 
@@ -114,17 +114,8 @@ class CustomerDeleteView(DeleteView):
     model = Customer
     success_url = reverse_lazy('customer-list')
 
-# def quote_delete(request, id):
-#     context = {}
 
-#     obj = get_object_or_404(Customer, id=id)
-
-#     if request.method == "POST":
-#         obj.delete()
-#         return HttpResponseRedirect("/")
-
-#     return render(request, 'quotes/quote_delete.html', context)
-
+"""Изменение пользователя"""
 
 class CustomerUpdateView(UpdateView):
     model = Customer
@@ -164,3 +155,10 @@ class SignUpdateView(UpdateView, ModelFormMixin):
     model = DigitalSign
     form_class = DigitalSignForm
     template_name_suffix = '_update'
+
+
+"""Удаление ЭП"""
+
+class SignDeleteView(DeleteView):
+    model = DigitalSign
+    success_url = reverse_lazy('sign_list')

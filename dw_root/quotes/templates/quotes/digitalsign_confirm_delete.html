@@ -1,0 +1,22 @@
+{% extends 'quotes/quote.html' %}
+
+{% block title %}Удаление пользователя{% endblock title %}
+
+{% block content %}
+<br>
+<div class="row" >
+	<div class="col-sm-4 mx-auto">
+		<div class="card card-body mb-3 text-center" style="width: 24rem;">
+            <form method="POST">
+            <p>Вы уверены что хотите удалить сертификат <b>{{ digitalsign.customer }}</b> действующий до <b>{{ digitalsign.end_date }}</b>?</p>
+                <!-- Security token by Django -->
+                {% csrf_token %}
+
+                <input class="btn btn-danger" type="submit" value="Удалить"/>
+                <a class="btn btn-warning" href="/sign/list">Отмена</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

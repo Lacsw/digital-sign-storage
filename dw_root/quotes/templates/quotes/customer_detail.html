@@ -48,10 +48,10 @@
 			<table class="table table-sm">
 				<tr>
 					<th>ID</th>
-					<th>Кем выдана</th>
 					<th>Кому выдана</th>
 					<th>Дата выдачи</th>
 					<th>Дата окончания</th>
+					<th>Кем выдана</th>
 					<th>№ ГИС</th>
 					<th></th>
 					<th></th>
@@ -60,13 +60,13 @@
                 {% for sign in customer.customer_sign.all %}
                         <tr>
                             <td><a href="sign/{{ sign.id }}">{{ sign.id }}</a></td>
-                            <td>{{ sign.get_sign_type_display }}</td>
                             <td>{{ sign.customer }}</td> 
                             <td>{{ sign.start_date }}</td> 
                             <td>{{ sign.end_date }}</td>
+							<td>{{ sign.get_sign_type_display }}</td>
                             <td>{% for gis in sign.gis_required.all %}{{gis}}</br>{% endfor %}</td>
 							<td><a class="btn btn-outline-warning btn-sm" href="{% url "digitalSign_update" sign.id %}">Изменить</a></td>
-							<td><a class="btn btn-outline-danger btn-sm" href="{% url "customer_update" sign.id %}">Удалить</a></td> 
+							<td><a class="btn btn-outline-danger btn-sm" href="{% url "sign_delete" sign.id %}">Удалить</a></td>  
 
                         </tr>
 				{% endfor %}

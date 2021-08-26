@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from .views import CustomerDeleteView, CustomerList, CustomerUpdateView, CustomerDetailView, SignList, SignUpdateView
+from .views import CustomerDeleteView, CustomerList, CustomerUpdateView, CustomerDetailView, SignList, SignUpdateView, SignDeleteView
 
 urlpatterns = [
     path('', views.quote_req, name='quote-request'),
@@ -14,6 +14,7 @@ urlpatterns = [
     path('sign/list', SignList.as_view(), name='sign_list'),
     path('sign/<int:pk>/update',
          SignUpdateView.as_view(), name='digitalSign_update'),
+    path('sign/<int:pk>/delete', SignDeleteView.as_view(), name='sign_delete'),
 
 
 ]
