@@ -9,7 +9,7 @@
 <table class="table table-sm table-hover">
     <thead>
     <tr class="quotehdr">
-        <th>ID</th>
+        <th></th>
         <th>Фамилия</th>
         <th>Имя</th>
         <th>Отчество</th>
@@ -25,7 +25,7 @@
     <tbody>
     {% for customer in customer_list %}
         <tr>
-            <td><a href="detail/{{ customer.id }}">{{ customer.id }}</a></td>
+            <td><a class="btn btn-sm btn-info" href="{% url 'customer_detail' customer.id %}">Подбробнее</a></td>
             <td><a href="detail/{{ customer.id }}">{{ customer.last_name }}</a></td>
             <td>{{ customer.name }}</td>
             <td>{{ customer.middle_name }}</td>

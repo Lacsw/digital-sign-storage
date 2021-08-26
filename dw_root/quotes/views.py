@@ -9,9 +9,11 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
+from django_filters.views import FilterView
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 
+from .filters import SignFilter
 from .models import Customer, DigitalSign
 from .forms import CustomerForm, DigitalSignForm
 
@@ -112,7 +114,7 @@ class Register(CreateView):
 
 class CustomerDeleteView(DeleteView):
     model = Customer
-    success_url = reverse_lazy('customer-list')
+    success_url = reverse_lazy('customer_list')
 
 
 """Изменение пользователя"""
@@ -126,22 +128,23 @@ class CustomerUpdateView(UpdateView):
 
 """Список сертификатов"""
 
+current_time = timezone.now()
 
-class SignList(LoginRequiredMixin, ListView):
+class SignList(LoginRequiredMixin, FilterView):
     login_url = reverse_lazy('login')
     model = DigitalSign
     template_name = 'quotes/sign_list.html'
-    queryset = DigitalSign.objects.all()
+    queryset = DigitalSign.objects.filter(end_date__gte=current_time)
+    filterset_class = SignFilter
 
     def get_context_data(self, **kwargs):
 
         context = super(SignList, self).get_context_data(**kwargs)
-        current_time = timezone.now()
         left_7days = current_time + timedelta(days=7)
         left_15days = current_time + timedelta(days=15)
         left_30days = current_time + timedelta(days=30)
         context.update({
-            'active_signs': DigitalSign.objects.filter(end_date__gte=current_time),
+            # 'active_signs': DigitalSign.objects.filter(end_date__gte=current_time),
             'signs_7days_left': DigitalSign.objects.filter(end_date__range=[current_time, left_7days]),
             'signs_15days_left': DigitalSign.objects.filter(end_date__range=[left_7days, left_15days]),
             'signs_30days_left': DigitalSign.objects.filter(end_date__range=[left_15days, left_30days]),
