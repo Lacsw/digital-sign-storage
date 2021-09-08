@@ -152,6 +152,11 @@ class SignList(LoginRequiredMixin, FilterView):
         return context
 
 
+class Sign15DaysList(SignList, ListView):
+    template_name = 'quotes/15days_left.html'
+    
+
+
 """Изменение ЭП"""
 
 class SignUpdateView(UpdateView, ModelFormMixin):
