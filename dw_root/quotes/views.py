@@ -151,10 +151,15 @@ class SignList(LoginRequiredMixin, FilterView):
         })
         return context
 
+class Sign7DaysList(SignList):
+    template_name = 'quotes/7days_left.html'
 
-class Sign15DaysList(SignList, ListView):
+class Sign15DaysList(SignList):
     template_name = 'quotes/15days_left.html'
-    
+
+class Sign30DaysList(SignList, ListView):
+    template_name = 'quotes/30days_left.html'
+
 
 
 """Изменение ЭП"""

@@ -6,7 +6,7 @@
 
 {% include 'quotes/status.html' %}
 
-<h1>Осталось 15 дней ({{signs_15days_left.count}})</h1>
+<h1>Осталось 7 дней ({{signs_7days_left.count}})</h1>
 <table class="table table-sm table-hover">
     <thead>
     <tr class="quotehdr">
@@ -20,7 +20,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for sign in signs_15days_left %}
+    {% for sign in signs_7days_left %}
         <tr>
             <td>{{ sign.id }}</td>
             <td>{{ sign.customer }}</td>
