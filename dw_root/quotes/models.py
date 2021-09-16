@@ -90,8 +90,3 @@ class DigitalSign(models.Model):
     
     def get_absolute_url(self):
         return reverse('customer_detail', kwargs={'pk': self.customer.pk})
-
-
-# В модели Подписи сделать поле status(Действует, Закончилась) и по статусу
-# и времени до конца срока определьять сколько дней осталось до получения новой
-# как только статус "Закончилась", убирать из списка для получения новых.
