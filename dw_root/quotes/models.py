@@ -18,8 +18,8 @@ class Customer(models.Model):
         ('CIOGD', 'ЦИОГД'),
         ('NIPC', 'НИПЦ'),
     ]
-    name = models.CharField('Имя', max_length=100)
     last_name = models.CharField('Фамилия', max_length=100)
+    name = models.CharField('Имя', max_length=100)
     middle_name = models.CharField('Отчество', max_length=100)
     position = models.CharField('Должность', max_length=100, blank=True)
     department = models.CharField(

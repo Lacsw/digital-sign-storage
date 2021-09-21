@@ -18,6 +18,6 @@ services:
     environment:
       - POSTGRES_USER=rfrolov
       - POSTGRES_PASSWORD=1234
-      - POSTGRES_DB=hello_django_dev
+      - POSTGRES_DB=digital_sign_storage_dev
 volumes:
   postgres_data:
